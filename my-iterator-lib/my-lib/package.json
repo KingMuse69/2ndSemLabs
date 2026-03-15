@@ -1,0 +1,9 @@
+{
+  "name": "my-iteration-lib",
+  "version": "1.0.0",
+  "description": "Library for generators and timeout iterators",
+  "main": "index.js",
+  "type": "module",
+  "authors": "Oleksii Bilash (IM-52)",
+  "license": "MIT"
+}
