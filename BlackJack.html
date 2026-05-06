@@ -1,0 +1,127 @@
+Bilash Oleksii IM-52
+
+|| Game of Black Jack!
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blackjack</title>
+    <style>
+        body { font-family: sans-serif; background-color: #1a1a1a; color: white; text-align: center; }
+        .container { margin-top: 50px; }
+        .hand { margin: 20px; min-height: 100px; padding: 10px; border: 1px solid #444; border-radius: 8px; background: #2a2a2a; }
+        .controls { margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 5px; margin: 5px; }
+        button:disabled { background: #666; cursor: not-allowed; }
+        #message { font-weight: bold; font-size: 1.2rem; color: #ffeb3b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Blackjack</h1>
+    <div id="message">Press New Game to Start</div>
+    
+    <div class="hand">
+        <h3>Dealer: <span id="dealer-sum"></span></h3>
+        <div id="dealer-cards"></div>
+    </div>
+
+    <div class="hand">
+        <h3>You: <span id="player-sum"></span></h3>
+        <div id="player-cards"></div>
+    </div>
+
+    <div class="controls">
+        <button id="btn-new" onclick="startGame()">New Game</button>
+        <button id="btn-hit" onclick="hit()" disabled>Hit</button>
+        <button id="btn-stay" onclick="stay()" disabled>Stay</button>
+    </div>
+</div>
+
+<script>
+// Your Deck
+    let deck = [];
+    let playerSum = 0;
+    let dealerSum = 0;
+    let gameOver = false;
+
+    function buildDeck() {
+        let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+        let types = ["C", "D", "H", "S"];
+        deck = [];
+        for (let t of types) {
+            for (let v of values) {
+                deck.push(v + "-" + t);
+            }
+        }
+        deck.sort(() => Math.random() - 0.5);
+    }
+
+    function getValue(card) {
+        let value = card.split("-")[0];
+        if (isNaN(value)) {
+            if (value === "A") return 11;
+            return 10;
+        }
+        return parseInt(value);
+    }
+// Starting the game
+    function startGame() {
+        buildDeck();
+        gameOver = false;
+        playerSum = 0;
+        dealerSum = 0;
+
+        document.getElementById("btn-hit").disabled = false;
+        document.getElementById("btn-stay").disabled = false;
+        document.getElementById("message").innerText = "Good Luck, You'll need it!";
+
+        // Deal initial cards
+        dealerSum = getValue(deck.pop());
+        playerSum = getValue(deck.pop()) + getValue(deck.pop());
+
+        render();
+    }
+// Choose Hit
+    function hit() {
+        if (gameOver) return;
+        playerSum += getValue(deck.pop());
+        if (playerSum > 21) {
+            endGame("You Busted! Pay up LOL!");
+        }
+        render();
+    }
+// Coose Stay
+    function stay() {
+        if (gameOver) return;
+        
+        while (dealerSum < 17) {
+            dealerSum += getValue(deck.pop());
+        }
+
+        if (dealerSum > 21) endGame("Dealer Busted! You Win!");
+        else if (playerSum > dealerSum) endGame("You Win! Congrats!");
+        else if (playerSum < dealerSum) endGame("You Lose! Better Luck Next Time Bucko!");
+        else endGame("Tie!? That's...Unusual...Try again?");
+
+        render();
+    }
+// Le Epic Finale
+    function endGame(msg) {
+        gameOver = true;
+        document.getElementById("message").innerText = msg;
+        document.getElementById("btn-hit").disabled = true;
+        document.getElementById("btn-stay").disabled = true;
+    }
+
+    function render() {
+        document.getElementById("player-sum").innerText = playerSum;
+        document.getElementById("dealer-sum").innerText = gameOver ? dealerSum : "??";
+    }
+</script>
+
+</body>
+</html>
