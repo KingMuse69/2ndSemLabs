@@ -86,9 +86,7 @@ const dummyApi = http.createServer((req, res) => {
 });
 dummyApi.listen(4000);
 
-
 const proxy = new AuthProxy('localhost', 4000);
 proxy.start(8080);
-
 
 setTimeout(() => proxy.setStrategy('jwt'), 3000);
