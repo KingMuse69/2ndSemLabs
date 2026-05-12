@@ -25,5 +25,6 @@ class EventEmitter {
     }
   }
 }
+// Update 1.1: optimize listeners
 
 export default EventEmitter;
