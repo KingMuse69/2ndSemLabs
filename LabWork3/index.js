@@ -9,7 +9,7 @@ const slowSquare = (n) => {
     return n * n;
 };
 
-//memoized version with a cache limit of 2 items
+//memoized version with a cache limit of just 2 items
 
 const memoSquare = memoize(slowSquare, { maxSize: 2, strategy: 'LRU' });
 
