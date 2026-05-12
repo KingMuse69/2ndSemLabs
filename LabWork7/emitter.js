@@ -12,7 +12,7 @@ class EventEmitter {
     }
     this.events[eventName].push(callback);
 
-    //(unsubscribe)
+    //(unsubscribe) option
     return () => {
       this.events[eventName] = this.events[eventName].filter(cb => cb !== callback);
     };
