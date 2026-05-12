@@ -1,7 +1,8 @@
 const http = require('http');
 
-
 // Bilash Oleksii || IM-52
+//================================
+
 const AuthStrategies = {
     apiKey: (headers) => {
         headers['X-API-KEY'] = 'my-secret-api-key-123';
