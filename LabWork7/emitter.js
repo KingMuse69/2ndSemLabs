@@ -5,7 +5,7 @@ class EventEmitter {
     this.events = {};
   }
 
-  //(subscribe)
+  //(subscribe) option
   on(eventName, callback) {
     if (!this.events[eventName]) {
       this.events[eventName] = [];
