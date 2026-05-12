@@ -41,7 +41,6 @@ const logger = (options = {}) => {
     };
 };
 
-// Testing
 
 async function fetchData(id) {
     return new Promise((resolve) => {
