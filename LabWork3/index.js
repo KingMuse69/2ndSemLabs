@@ -1,6 +1,7 @@
 // Bilash Oleksii | IM-52
 // index.js
 //===============================//
+
 const memoize = require('./memoize');
 
 const slowSquare = (n) => {
@@ -8,7 +9,8 @@ const slowSquare = (n) => {
     return n * n;
 };
 
-// Create a memoized version with a cache limit of 2 items
+//memoized version with a cache limit of 2 items
+
 const memoSquare = memoize(slowSquare, { maxSize: 2, strategy: 'LRU' });
 
 console.log(memoSquare(5)); // Calculate
